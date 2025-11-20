@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-7xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-6 text-indigo-600">Admin Dashboard</h1>
+        <h2 class="text-xl mb-4">Pending Document Verifications</h2>
+        
+        <!-- Table of Pending Documents -->
+        <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
+            <thead class="bg-indigo-600 text-white">
+                <tr>
+                    <th class="px-4 py-2 text-left">Email</th>
+                    <th class="px-4 py-2 text-left">Document Type</th>
+                    <th class="px-4 py-2 text-left">Document Status</th>
+                    <th class="px-4 py-2 text-left">View Document</th>
+                    <th class="px-4 py-2 text-left">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doc in documents %}
+              
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="px-4 py-2">{{ doc[1] }}</td>
+                    <td class="px-4 py-2">{{ doc[3] }}</td>
+                   
+                    <td class="px-4 py-2">{{ doc[4] }}</td>
+                    <td class="px-4 py-2">
+                        <a href="{{ url_for('view_document', filename=doc[2]) }}" target="_blank" class="text-indigo-600 hover:underline">View Document</a>
+                    </td>
+                    {% if doc[4] == 'pending' %}<td class="px-4 py-2">
+                        <a href="{{ url_for('verify_document', document_id=doc[0]) }}" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Verify</a>
+                    </td>{% else %} <td class="px-4 py-2">
+                        <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" disabled>Verified</button>
+                    </td>{% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% if popup %}
+<div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+        <div class="flex justify-between items-center mb-4">
+            {%if success %}
+            <h2 class="text-xl font-bold text-green-600">Document Verification Successful</h2>
+            {% else %}
+            <h2 class="text-xl font-bold text-red-600">Document Verification Failed</h2>
+            {% endif %}
+            <button onclick="this.parentElement.parentElement.parentElement.style.display='none'" class="text-gray-600 text-3xl hover:text-gray-900">&times;</button>
+        </div>
+       
+    </div>
+</div>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-500 p-4">
+        <div class="container mx-auto flex justify-center gap-4 items-center">
+            <a href="/user_info" class="text-white text-lg hover:text-black font-semibold">Home</a>
+            <a href="/dashboard" class="text-white text-lg hover:text-black font-semibold">Verify Document</a>
+        </div>
+    </nav>
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold text-center mb-6 text-indigo-600">Welcome to Your Dashboard!</h1>
+        <p class="text-center mb-6 text-gray-600">Please upload the necessary document for verification.</p>
+        
+        <!-- Form to upload document -->
+        <form action="/upload" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <!-- Document Type Selection -->
+            <div>
+                <label for="document_type" class="block text-sm font-medium text-gray-700">Select Document Type</label>
+                <select id="document_type" name="document_type" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="non-creamy layer">Non-Creamy Layer</option>
+                    <option value="aadhar">Aadhar</option>
+                    <option value="pancard">PAN Card</option>
+                </select>
+            </div>
+            
+            <!-- File Upload -->
+            <div>
+                <label for="document" class="block text-sm font-medium text-gray-700">Upload Document Image</label>
+                <input type="file" id="document" name="document" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+            </div>
+            
+            <!-- Submit Button -->
+            <div>
+                <button type="submit" class="w-full py-2 px-4 bg-indigo-600 text-white font-medium rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

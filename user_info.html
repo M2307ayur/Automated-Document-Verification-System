@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Documents</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 ">  <nav class="bg-blue-500 p-4">
+    <div class="container mx-auto flex justify-center gap-4 items-center">
+        <a href="/user_info" class="text-white text-lg hover:text-black font-semibold">Home</a>
+        <a href="/dashboard" class="text-white text-lg hover:text-black font-semibold">Verify Document</a>
+    </div>
+</nav>
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Uploaded Documents for Verification</h1>
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <table class="min-w-full bg-white rounded-lg overflow-hidden">
+            <thead class="bg-blue-200">
+                <tr>
+                <th class="py-3 px-4 border-b-2 border-gray-300 text-center">Document Name</th>
+                <th class="py-3 px-4 border-b-2 border-gray-300 text-center">View Document</th>
+                <th class="py-3 px-4 border-b-2 border-gray-300 text-center">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doc in documents %}
+                <tr class="hover:bg-gray-100">
+                <td class="py-3 px-4 border-b border-gray-200 text-center">{{doc[3]}}</td>
+                <td class="py-3 px-4 border-b border-gray-200 text-center">
+                    <a href="{{ url_for('view_document', filename=doc[2]) }}" target="_blank"
+                    class="text-indigo-600 hover:underline">View Document</a>
+                </td>
+                {% if doc[4] == 'pending' %}
+                <td class="py-3 px-4 border-b border-gray-200 text-center bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600">Pending</td>
+                {% elif doc[4] == 'verified' %}
+                <td class="py-3 px-4 border-b border-gray-200 text-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Verified</td>
+                {% elif doc[4] == 'failed' %}
+                <td class="py-3 px-4 border-b border-gray-200 text-center bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">Failed</td>
+                {% endif %}{% endfor %}
+            </tbody>
+            </table>
+            <div class="mt-6">
+                <a href="{{ url_for('upload') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Upload Another Document</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
